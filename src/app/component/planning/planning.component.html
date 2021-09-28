@@ -1,0 +1,45 @@
+<nz-layout class="app-layout">
+
+    <app-header></app-header>
+<!--     <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true" [width]="600" [height]="300"></hot-table>
+ -->
+  <nz-layout class="inner-layout">
+    <div>
+      <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true" [width]="1000" [height]="300" [licenseKey]="licenseKey">
+        <hot-column data="projectName" title="projectName"></hot-column>
+        <hot-column data="location" title="location"></hot-column>
+        <hot-column *ngFor="let val of years; let i = index" data="{{ 'year' + (i + 1) }}" [width]="70" [title]="val"></hot-column>
+      </hot-table>
+      </div>
+    <!-- Side Menu -->
+   <!--  <nz-sider nzWidth="300px" class="menu-sidebar" nzTheme="light" nzCollapsible nzBreakpoint="md"
+      [(nzCollapsed)]="isCollapsedVerticalLeft" [nzTrigger]="null">
+      <ul nz-menu nzMode="inline" class="sider-menu">
+        <li nz-submenu nzOpen nzIcon="user" nzTitle="subnav 1">
+          <ul>
+            <li nz-menu-item nzSelected>option1</li>
+            <li nz-menu-item>option2</li>
+            <li nz-menu-item>option3</li>
+            <li nz-menu-item>option4</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="subnav 2" nzIcon="laptop">
+          <ul>
+            <li nz-menu-item>option5</li>
+            <li nz-menu-item>option6</li>
+            <li nz-menu-item>option7</li>
+            <li nz-menu-item>option8</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="subnav 3" nzIcon="notification">
+          <ul>
+            <li nz-menu-item>option9</li>
+            <li nz-menu-item>option10</li>
+            <li nz-menu-item>option11</li>
+            <li nz-menu-item>option12</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider> -->
+    <!-- Content -->
+  </nz-layout>

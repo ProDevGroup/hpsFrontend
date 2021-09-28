@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'hpsFrontend';
+  isCollapsed = false;
+  isCollapsedVerticalLeft = false;
+  isCollapsedHorizontalTop = false;
+  toggleCollapsedVerticalLeft(): void {
+    this.isCollapsedVerticalLeft = !this.isCollapsedVerticalLeft;
+  }
+
+  toggleCollapsedHorizontalTop(): void {
+    this.isCollapsedHorizontalTop = !this.isCollapsedHorizontalTop;
+}
 }
