@@ -32,11 +32,11 @@
             <button nz-button nzType="primary" (click)="toggleCollapsedHorizontalTop()">
               <i nz-icon [nzType]="isCollapsedHorizontalTop ? 'menu-unfold' : 'menu-fold'"></i>
             </button>-->
-            <ul id="nav" nz-menu="" nzTheme="light" nzMode="horizontal" class="sider-menu">
-              <li nz-menu-item nzSelected [routerLink]="['/planning']">Planning</li>
-              <li nz-menu-item [routerLink]="['/createPlanning']">Create Planning</li>
-<!--               <li nz-menu-item>Application Settings</li>
- -->              <li nz-menu-item>Documentation</li>
+            <ul id="nav"  nz-menu nzSelectable nzTheme="light" nzMode="horizontal" class="sider-menu">
+              <li nz-menu-item nzSelected routerLink="/planning">Planning</li>
+              <li nz-menu-item routerLink="/createPlanning">Create Planning</li>
+<!--               <li nz-menu-item>Application Settings</li>-->
+              <li nz-menu-item routerLink="/importData">Import</li>
               <li nz-menu-item>Help</li>
               <li nz-menu-item>Log out</li>
             </ul>

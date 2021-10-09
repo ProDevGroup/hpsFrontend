@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+
+    <div class="content">
+        <div class="block  ">
+            <div class="title" style="display: flex;justify-content: space-between;align-items: center;">
+                <p>Import of Data</p>
+                <div>{{ uploadInfo }} {{importTime}}</div>
+            </div>
+            <div class="file">
+                <nz-upload class="upload-list-inline" nzType="drag" nzListType="picture" nzName="file"
+                    [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" [nzMultiple]="false"
+                    (nzChange)="handleChange($event)">
+                    <p class="ant-upload-drag-icon">
+                        <i class="fa fa-cloud-upload fa-3x" *ngIf="!spin" aria-hidden="true"></i>
+                        <nz-spin nzSimple [nzSpinning]="spin" [nzSize]="'large'"></nz-spin>
+                    </p>
+                    <p class="ant-upload-text">Glissez les fichiers</p>
+                    <p class="ant-upload-hint"> Des données de type Excel.. </p>
+                </nz-upload>
+            </div>
+            <div class="ouBtn "></div>
+
+            <div class="row tele">
+
+            </div>
+            <div class="butn d-flex justify-content-end">
+                <!-- <button type="button" class="btn btn-outline-primary">Annuler</button> &nbsp; -->
+                <button type="submit" (click)="onSubmit()" class="btn btn-primary">Valider</button>
+            </div>
+        </div>
+    </div>

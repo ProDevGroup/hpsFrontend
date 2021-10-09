@@ -1,5 +1,5 @@
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import '~handsontable/dist/handsontable.full.css';
-
-/* @import "~bootstrap/dist/css/bootstrap.min.css"; 
-@import "~font-awesome/css/font-awesome.min.css";*/
+@import '~ngx-toastr/toastr';
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/* @import "~font-awesome/css/font-awesome.min.css"; */

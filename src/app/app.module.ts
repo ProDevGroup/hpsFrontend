@@ -17,6 +17,9 @@ import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { HotTableModule } from '@handsontable/angular';
+import {NgZorroAntdModule} from "./ng-zorro-antd.module";
+import {ImportDataComponent} from "./component/import-data/import-data.component";
+import { ToastrModule } from 'ngx-toastr';
 
 
 registerLocaleData(en);
@@ -26,9 +29,11 @@ registerLocaleData(en);
     AppComponent,
     HeaderComponent,
     PlanningComponent,
-    CreatePlanningComponent
+    CreatePlanningComponent,
+    ImportDataComponent
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -37,7 +42,13 @@ registerLocaleData(en);
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,
-    HotTableModule.forRoot()
+    NgZorroAntdModule,
+    HotTableModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
