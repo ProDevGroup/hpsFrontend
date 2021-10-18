@@ -3,13 +3,33 @@
     <app-header></app-header>
 <!--     <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true" [width]="600" [height]="300"></hot-table>
  -->
+ <div class="row no-gutters title_line" style="background-color: #73b8f8;" >
+  
+  <div class="col-2 no-gutters" style="margin: auto; background-color: #73b8f8;">
+      <div class="row no-gutters switcher" >
+          <div style="border-radius: 6px; font-size: medium;" (click)="choixGraph()" [ngStyle]="{'background-color': (choixAffichage) ? 'white' : '#f0f0f0','color': (choixAffichage) ? '#232324' : '#c5c5c5'}" class="col no-gutters">
+              <i class="fa fa-bar-chart mr-1" aria-hidden="true"></i>Table
+          </div>
+          <div style="border-radius: 6px; font-size: medium;" (click)="choixTable()" [ngStyle]="{'background-color': (choixAffichage) ? '#f0f0f0' : 'white','color': (choixAffichage) ? '#c5c5c5' : '#232324'}" class="col no-gutters">
+              <i class="fa fa-table mr-1" aria-hidden="true"></i>Chart
+          </div>
+      </div>
+  </div>
+</div>
   <nz-layout class="inner-layout">
-    <div>
-      <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true" [width]="1000" [height]="300" [licenseKey]="licenseKey">
+    <div  *ngIf="choixAffichage">
+      <i (click)="exportExcel()" nz-icon nzType="file-excel" nzTheme="outline" style="font-size: 18px; color: #41c9a7; cursor: pointer;"></i>
+      <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true"  [licenseKey]="licenseKey">
         <hot-column data="projectName" title="projectName"></hot-column>
         <hot-column data="location" title="location"></hot-column>
-        <hot-column *ngFor="let val of years; let i = index" data="{{ 'year' + (i + 1) }}" [width]="70" [title]="val"></hot-column>
+        <hot-column *ngFor="let val of months; let i = index" data="{{ 'month' + (i + 1) }}" [width]="70" [title]="val"></hot-column>
       </hot-table>
+      </div>
+
+      <div class=" TableGraphe"  *ngIf="!choixAffichage">
+
+        <p-chart type="bar" [data]="dataChart" [options]="chartOptions"></p-chart>
+
       </div>
     <!-- Side Menu -->
    <!--  <nz-sider nzWidth="300px" class="menu-sidebar" nzTheme="light" nzCollapsible nzBreakpoint="md"

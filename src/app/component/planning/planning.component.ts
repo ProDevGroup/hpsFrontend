@@ -1,6 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { KeyValue } from '@angular/common';
 import { PlanningServiceService } from './planning-service.service';
+import { Planning } from '../models/planning.model';
+import { Chart } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
+import * as fs from 'file-saver';
+
+
+interface defaultValue {
+  key: string,
+  value: number,
+}
 
 @Component({
   selector: 'app-planning',
@@ -9,90 +19,106 @@ import { PlanningServiceService } from './planning-service.service';
 })
 export class PlanningComponent implements OnInit {
 
-  //carData : any[] | undefined;
-  licenseKey = 'non-commercial-and-evaluation';
-  years = ['202107', '202108', '202109', '202110', '202111'];
-  planningData: any =[];
-  data:any =[] ;
 
-  constructor(private planningService: PlanningServiceService) { }
+  licenseKey = 'non-commercial-and-evaluation';
+  months:any = []; //['202107', '202108', '202109', '202110', '202111'];
+  planningData: Planning[] =[];
+  data:any =[] ;
+  monthsList: defaultValue[]=[];
+
+
+  choixAffichage: boolean = true;
+  dataChart: any = [300, 150];
+  changedData: any;
+  ecartVentes: any;
+  chartOptions = {
+    bezierCurve: false,
+    responsive: true,
+    title: {
+      display: false,
+      text: 'Combo Bar Line Chart',
+    },
+
+    tooltips: {
+      enabled: true,
+      mode: 'index',
+      intersect: true,
+    },
+    legend: {
+      display: true,
+      labels: {
+        fontColor: '#818284',
+      },
+      position: 'bottom',
+    },
+    scales: {
+      yAxes: [
+        {
+          id: 'A',
+          gridLines: {
+            display: true,
+            lineWidth: 0,
+            zeroLineWidth: 1,
+          },
+          position: 'left',
+        }
+      ],
+    },
+  };
+
+
+
+  constructor(private planningService: PlanningServiceService,
+              private toastrService: ToastrService) { }
 
   getTableData() {
-    let dataPlan: any[] = [];
-
-     /* let carData = [
-      { id: 1, make: 'Tesla', model: 'Model S',value:[1,2,3,4,4.1], defaultValues: this.getDefaultValuesByYear() },
-      { id: 2, make: 'Mercedes', model: 'S-Class Coupe',value:[5,6,7,8,8.1], defaultValues: this.getDefaultValuesByYear() },
-      { id: 3, make: 'Toyota', model: 'Corolla',value:[9,10,11,12,12.1], defaultValues: this.getDefaultValuesByYear() },
-      { id: 4, make: 'Volvo', model: 'S60',value:[13,14,15,16,16.1], defaultValues: this.getDefaultValuesByYear() },
-    ]; */
-
+    const dataPlan: any[] = [];
+   
     let Data = this.planningData;
-      Data.forEach((planning: { defaultValues: any[]; value: any[]; id: any; location: any; projectName: any; }) => {
-      const quarterValues: { [k: string]: any } = {};
-      console.log("qua;;;;" , planning);
+  
+    this.months = this.months.filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
 
-      planning.defaultValues.forEach((kvp, index) => {
-        quarterValues[`year${index + 1}`] = kvp;
+      Data.forEach((planning: Planning) => {
+      let quarterValues: { [k: string]: any } = {};
+     // console.log("defff;;;;" , JSON.stringify(planning.defaultValues.forEach((kvp: KeyValue<string, number>, index: number) => kvp.key)));
+      console.log("defff;;;;" , planning);
+        //let def : defaultValue;
+        let def = planning.defaultValues && planning.defaultValues[0].key;
+      console.log(def);
+
+      if(planning?.location != undefined){
+        console.log(planning?.location);
+
+      }
+      
+      planning.defaultValues?.forEach((kvp: { value: any; }, index: number) => {
+        quarterValues[`month${index + 1}`] = kvp.value;
         
         console.log("quarterValues...." + JSON.stringify(quarterValues));
         
       });
 
       dataPlan.push({
-        id: planning.id,
-        location: planning.location,
-        projectName: planning.projectName,
+        id: planning?.id,
+        location: planning?.location,
+        projectName: planning?.projectName,
         ...quarterValues,
       });
     });
-    console.log(' palnningData...', this.planningData);
+    console.log(' palnningData...', dataPlan);
 
-    /* for (let i = 0; i < this.planningData.length; i++) {
-      console.log("work", i);
-      
-      const quarterValues: { [k: string]: any } = {};    
-
-      /* this.planningData.defaultValues.forEach((kvp, index) => {
-        console.log("work2");
-        
-        quarterValues[`year${index + 1}`] = Data[i].value[index];
-        
-        console.log("quarterValues" + JSON.stringify(quarterValues));
-        
-      }); 
-      if (Data.length > 0) {
-        for (let index = 0; index < this.years.length; index++) {
-        quarterValues[`year${index + 1}`] = this.planningData[i].value[index];
-        console.log("work2");
-        console.log("quarterValues" + JSON.stringify(quarterValues));
-        
-      }
-      }
-      
-      console.log("work2", i);
-
-      dataPlan.push({
-        id: Data[i].id,
-        location: Data[i].location,
-        projectName: Data[i].projectName,
-        ...quarterValues,
-      });
-    } */
-
+  
     this.data = dataPlan;
+
+    this.getPlanningChartValues();
   }
 
-  getDefaultValuesByQuarter(value:number[]): KeyValue<string, number>[] {
+  getDefaultValuesByMonths(months:string[], value:number[]):  KeyValue<string, number>[] {
     const defaultValues: KeyValue<string, number>[] = [];
 
-    for(let i=0; i<this.years.length ; i++){
-      defaultValues.push({ key: this.years[i], value: value[i] });
+    for(let i=0; i<months?.length ; i++){
+      defaultValues.push({ key: months[i], value: value[i] });
     }
-    /* this.years.forEach(year => {
-      defaultValues.push({ key: year, value: 233 });
-    }); */
-    console.log("defaultValues" + JSON.stringify(defaultValues));
 
     return defaultValues;
   }
@@ -100,20 +126,23 @@ export class PlanningComponent implements OnInit {
   getPlannings() {
     this.planningService.getPlanning().subscribe((res:any) => {
       
-      res.forEach((element: { id: any; location: any; projectName: any; values: any; quarters: any; }) => {
-        let planning = [
-          {
+    
+      res.forEach((element: Planning) => {
+        let planning = {
             id: element.id,
             location: element.location,
             projectName: element.projectName,
             values: element.values,
-            quarters: element.quarters,
-            defaultValues: this.getDefaultValuesByQuarter(element.values)
-          },
-        ];
+            months: element.months,
+            defaultValues: this.getDefaultValuesByMonths(element.months, element.values)
+          };
+
+        element.months.forEach(month=>{
+          this.months.push(month);
+        })  
+
         this.planningData.push(planning);
       });
-//      this.planningData = res;
       this.getTableData();
       console.log(' palnningData', this.planningData);
     });
@@ -129,6 +158,62 @@ export class PlanningComponent implements OnInit {
     this.isCollapsedHorizontalTop = !this.isCollapsedHorizontalTop;
   }
   
+  choixGraph() {
+    this.choixAffichage = true;
+  }
+  choixTable() {
+    this.choixAffichage = false;
+  }
+
+  getPlanningChartValues() {
+    this.planningService.getPlanningValues().subscribe((response: any) => {
+      console.log('planning values===', response);
+      //this.ecartVentes = response.chartValues;
+      response && this.populate_chart(response);
+      console.log('response::', response);
+
+    },
+    (error: any) => {
+      if (error.error.code === '001') {
+        this.toastrService.warning(
+          `No planning values!`
+        );
+      } 
+     
+    });
+
+  }
+  populate_chart(data: any) {
+    console.log(data + 'new object');
+
+    this.changedData = {
+      lineTension: '0',
+      labels: data.months,
+      datasets: [
+        {
+          yAxisID: 'A',
+          type: 'bar',
+          label: 'Hours',
+          backgroundColor: '#24ccb8',
+          data:  data.chartValues,
+
+        }
+      ],
+    };
+    this.dataChart = Object.assign({}, this.changedData);
+  }
+
+  exportExcel() {
+    let name = "planning" + '_' + Date.now;
+    this.planningService.exportExcel()
+      .subscribe((response: any) => {
+        this.downloadFile(response, name);
+      });
+  }
+  downloadFile(data: any, name: any) {
+    const blob = new Blob([data], { type: 'blob' });
+    fs.saveAs(blob, name + '.xlsx');
+  }
 
   ngOnInit(): void {
     this.getPlannings();

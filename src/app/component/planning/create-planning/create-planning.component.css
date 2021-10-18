@@ -1,0 +1,13 @@
+label {
+    padding-top: 2%;
+}
+.btn{
+    background-color: #3297f5;
+    border: none;
+    margin-top: 5%;
+    align-self: flex-end;
+    color: white;
+}
+h3{
+    margin-top: 10%;
+}

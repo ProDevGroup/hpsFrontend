@@ -18,4 +18,3 @@ const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline
 })
 export class IconsProviderModule {
 }
-

@@ -20,7 +20,7 @@ import { HotTableModule } from '@handsontable/angular';
 import {NgZorroAntdModule} from "./ng-zorro-antd.module";
 import {ImportDataComponent} from "./component/import-data/import-data.component";
 import { ToastrModule } from 'ngx-toastr';
-
+import { ChartModule } from 'primeng/chart';
 
 registerLocaleData(en);
 
@@ -33,7 +33,6 @@ registerLocaleData(en);
     ImportDataComponent
   ],
   imports: [
-    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -48,7 +47,8 @@ registerLocaleData(en);
       timeOut: 10000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    ChartModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

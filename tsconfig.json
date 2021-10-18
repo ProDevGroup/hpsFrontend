@@ -2,12 +2,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowJs": true,
+    "strictNullChecks": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
-    /* "noImplicitAny": false, */
+    "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -32,4 +34,5 @@
     "./typings",
     "./node_modules/@types/"
   ]
+  
 }
