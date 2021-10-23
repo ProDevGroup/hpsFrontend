@@ -1,0 +1,72 @@
+
+.login,
+.image {
+    min-height: 100vh;
+}
+
+.border {
+    border-radius: 20px;
+    border: solid 2px #d5d9df;
+    padding: 40px 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #2d2f3f;
+    font-size: 14px;
+    font-family: Aspira-Demi;
+    font-weight: 600;
+}
+
+.form-group input {
+    background-color: #f8fbfe;
+}
+
+.form a {
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+    padding-top: 6px;
+    font-family: Aspira-Demi;
+    color: #000;
+}
+
+
+.error {
+    color: #f02849;
+    font-family: SFProText-Regular, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 16px;
+    margin-top: 8px;
+    text-align: left;
+}
+
+                            /*PopUp Send Email */
+#sendMailForm{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+#sendMailForm button{
+    max-width: 25%;
+}
+.errspan {
+    float: right;
+    margin-right: 12px;
+    margin-top: -26px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+button {
+    position:relative;
+    margin-left: 40%;
+}
+a {
+    position:relative;
+    margin-left: 43%;
+}

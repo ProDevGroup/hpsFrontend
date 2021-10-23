@@ -38,7 +38,7 @@
 <!--               <li nz-menu-item>Application Settings</li>-->
               <li nz-menu-item routerLink="/importData">Import</li>
               <li nz-menu-item>Help</li>
-              <li nz-menu-item>Log out</li>
+              <li nz-menu-item (click)="authService.logOut()" >Log out</li>
             </ul>
           <!--</div>-->
         </div>

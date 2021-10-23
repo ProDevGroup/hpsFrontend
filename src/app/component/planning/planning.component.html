@@ -18,7 +18,8 @@
 </div>
   <nz-layout class="inner-layout">
     <div  *ngIf="choixAffichage">
-      <i (click)="exportExcel()" nz-icon nzType="file-excel" nzTheme="outline" style="font-size: 18px; color: #41c9a7; cursor: pointer;"></i>
+      <i (click)="exportExcel()" nz-icon nzType="file-excel" nzTheme="outline" style="font-size: 18px; color: #41c9a7; cursor: pointer;">
+        <span style="font-size: 14px; color: #41c9a7; cursor: pointer;">Export to</span> </i>
       <hot-table [data]="data" [colHeaders]="true" [rowHeaders]="true"  [licenseKey]="licenseKey">
         <hot-column data="projectName" title="projectName"></hot-column>
         <hot-column data="location" title="location"></hot-column>

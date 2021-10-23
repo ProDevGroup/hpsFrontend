@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <!-- login -->
+        <div class="col-md-12 bg-light">
+            <div class="login d-flex align-items-center py-5">
+                <!--  content-->
+                <div class="container">
+                    <div class="col-sm-6 mx-auto">
+                        <form nz-form class="form" [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+                            <p class="btn-block">Sign up</p>
+                            <!--  nom prenom-->
+                            <div class="form-group">
+                                <label for="fullName">Full name</label><br>
+                                <nz-form-control nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                                    <input nz-input formControlName="fullName" class="form-control" />
+                                    <ng-template #userErrorTpl let-control>
+                                        <ng-container *ngIf="control.hasError('required')"> Please enter your full name!
+                                        </ng-container>
+                                    </ng-template>
+                                </nz-form-control>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email:</label><br>
+                                <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                                    <input nz-input formControlName="email" class="form-control" type="email" />
+                                    <ng-template #emailErrorTpl let-control>
+                                        <ng-container *ngIf="control.hasError('email')"> This e-mail is not valid!
+                                        </ng-container>
+                                        <ng-container *ngIf="control.hasError('required')"> Please enter your email!
+                                        </ng-container>
+                                    </ng-template>
+                                </nz-form-control>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label><br>
+                                <!-- nzErrorTip="Please input your password!" -->
+                                <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                                    <input nz-input type="password" (focus)="hideError()" class="form-control" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
+                                    <ng-template #passwordErrorTpl let-control>
+                                        <ng-container *ngIf="control.hasError('pattern')"> The password must be at least 6 characters long, at least one upper and lower case letter, one special character and one number! </ng-container>
+                                    </ng-template>
+                                    <p class="password-format" *ngIf="passwordForm">The password must be at least 6 characters long, at least one upper and lower case letter, one special character and one number!
+                                    </p>
+                                </nz-form-control>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Confirme password:</label><br>
+                                <nz-form-item>
+                                    <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                                        <input nz-input type="password" class="form-control" formControlName="confirm" />
+                                        <ng-template #passwordErrorTpl let-control>
+                                            <ng-container *ngIf="control.hasError('required')">Please confirme your password</ng-container>
+                                            <ng-container *ngIf="control.hasError('confirm')"> Password not match
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        
+                            <button nz-button type="submit" style="height: max-content;" [disabled]="!validateForm.valid" [nzLoading]="isLoadingBtn" class="btn btn-primary col-4 text-uppercase mb-2 rounded-pill shadow-sm">Submit</button>&nbsp; &nbsp;
+                            <button type="submit" class="btn btn-secondary col-4 text-uppercase mb-2 rounded-pill shadow-sm" [routerLink]="[ '/login' ]">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- End -->
+            </div>
+        </div>
+        <!-- End -->
+    </div>
+</div>

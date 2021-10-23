@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <!-- login -->
+        <div class="col-md-12 bg-light">
+            <div class="login d-flex align-items-center py-5">
+                <!--  content-->
+                <div class="container">
+                    <div class="col-sm-6 mx-auto border">
+                        <form class="form" [formGroup]="loginForm">
+                            <div class="form-group">
+                                <label for="inputUsername">Username</label><br>
+                                <input id="inputUsername" type="username" required="" autofocus="" class="form-control" formControlName="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Password</label><br>
+                                <input id="inputPassword" name="inputPassword" type="{{password}}" required="" class="form-control" formControlName="password">
+                                <i class="{{classPassword}}" (click)="hideShowPass()" id="togglePassword"></i>
+                                <span class="error" *ngIf="worning">Please verify your username and password  !</span>
+                            </div>
+                             <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" (click)="signIn()">Sign in</button>
+                        </form>
+                        <a class="btn-block text-info" [routerLink]="['/register']" >Sign up</a>
+                    </div>
+                </div>
+                <!-- End -->
+            </div>
+        </div>
+        <!-- End -->
+    </div>
+
+</div>
+
