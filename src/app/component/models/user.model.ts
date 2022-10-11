@@ -9,6 +9,4 @@ export class User {
     public roles!: ProfileRole;
     public isActive!: Boolean;
     token?: string;
-
-
 }
